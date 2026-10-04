@@ -24,6 +24,6 @@ npm run dev                  # http://localhost:3000
 2. In Vercel: **Add New → Project → import `joinpond`** (defaults are fine).
 3. **Settings → Environment Variables:** add `RESEND_API_KEY` (from resend.com/api-keys). Optional: `SIGNUP_NOTIFY_EMAIL`, `SIGNUP_FROM_EMAIL`.
 4. **Settings → Domains:** buy or add `pondmentors.com` (and `www.pondmentors.com`).
-5. Optional: verify `send.pondmentors.com` in Resend, then set `SIGNUP_FROM_EMAIL="Pond <hello@send.pondmentors.com>"`.
+5. Emails send from `hello@send.pondmentors.com` (domain verified in Resend) ✓
 
 Until the Resend key is set, the form tells visitors to email you directly instead of failing silently.

@@ -71,7 +71,7 @@ export async function POST(req: Request) {
   }
 
   const to = process.env.SIGNUP_NOTIFY_EMAIL || "katieehoangg@gmail.com";
-  const from = process.env.SIGNUP_FROM_EMAIL || "Pond <onboarding@resend.dev>";
+  const from = process.env.SIGNUP_FROM_EMAIL || "Pond <hello@send.pondmentors.com>";
   const roleLabel = role === "mentor" ? "Mentor" : "Mentee";
 
   const rows = [["Name", name], ["Email", email], ...extras.map(([k, v]) => [LABELS[k], v])]
