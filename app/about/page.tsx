@@ -29,10 +29,20 @@ export default function AboutPage() {
             Hi, I&apos;m Katie.
           </h1>
           <div className="mt-6 space-y-5 text-lg leading-relaxed">
+            <p className="font-display text-2xl font-semibold leading-snug">
+              It takes a village to do most meaningful things — especially as a first-gen
+              college graduate.
+            </p>
             <p>
-              I started Pond because the best career advice I ever got didn&apos;t come from
-              someone twenty years ahead of me. It came from people a couple of years ahead —
-              friends, coworkers, the person who&apos;d had my job right before me.
+              I knew what I didn&apos;t want in a career, and I knew what I did. The best thing
+              that happened on my journey was trusting my gut and exploring UX design. Along the
+              way, I learned that the qualities I&apos;d built as the oldest child of immigrant
+              parents were exactly what tech was looking for.
+            </p>
+            <p>
+              The second best thing was finding mentors — by cold-DMing them on LinkedIn. They
+              became pivotal. They gave me confidence, clarity, and the reassurance that a
+              career in tech was possible for someone scrappy and willing to figure it out.
             </p>
             <p>
               They remembered what it was like. They knew which questions actually mattered,
