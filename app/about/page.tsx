@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+const LINKEDIN_URL = "https://www.linkedin.com/in/REPLACE-ME";
+
 export const metadata: Metadata = {
   title: "About — Pond",
   description: "Why Katie started Pond, a peer mentoring network for young professionals.",
@@ -60,12 +62,20 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link href="/join" className="btn-primary px-6 py-3 text-lg">
               Join Pond
             </Link>
-            <a href="mailto:katieehoangg@gmail.com" className="btn-quiet px-6 py-2.5 text-lg">
-              Email me
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Katie on LinkedIn (opens in a new tab)"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-ink/80 text-ink transition-colors hover:bg-ink hover:text-surface"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.84v1.5h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14v5.42h-4v-4.8c0-1.15-.02-2.62-1.6-2.62-1.6 0-1.84 1.25-1.84 2.54v4.88h-4v-11z" />
+              </svg>
             </a>
           </div>
         </div>
