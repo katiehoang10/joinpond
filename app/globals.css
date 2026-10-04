@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Bricolage Grotesque Variable";
+    --font-body: "Figtree Variable";
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-surface text-ink font-sans;
+  }
+  :focus-visible {
+    outline: 3px solid #4F46E5;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-indigo px-5 py-2.5 font-semibold text-white transition-colors hover:bg-indigo-dark;
+  }
+  .btn-quiet {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-ink/80 px-5 py-2 font-semibold text-ink transition-colors hover:bg-ink hover:text-surface;
+  }
+}
+
+/* The one orchestrated moment: ripples spread out once when the page loads. */
+@keyframes ripple-out {
+  from { transform: scale(0.2); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.ripple-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ripple-out 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ripple-ring { animation: none; }
+}

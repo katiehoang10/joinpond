@@ -1,0 +1,65 @@
+import { NextResponse } from "next/server";
+import { Resend } from "resend";
+
+const LABELS: Record<string, string> = {
+  workingOn: "Working on / figuring out",
+  helpNeeded: "Help needed",
+  background: "Background",
+  topics: "Topics & availability",
+};
+
+const esc = (s: string) =>
+  s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+
+export async function POST(req: Request) {
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Your sign-up didn't go through. Try again." }, { status: 400 });
+  }
+
+  const role = body.role === "mentor" ? "mentor" : "mentee";
+  const name = String(body.name ?? "").trim().slice(0, 200);
+  const email = String(body.email ?? "").trim().slice(0, 200);
+  const extraKeys = role === "mentor" ? ["background", "topics"] : ["workingOn", "helpNeeded"];
+  const extras = extraKeys.map((k) => [k, String(body[k] ?? "").trim().slice(0, 2000)] as const);
+
+  if (!name || !/^\S+@\S+\.\S+$/.test(email) || extras.some(([, v]) => !v)) {
+    return NextResponse.json({ error: "Fill in every field with a valid email address." }, { status: 400 });
+  }
+
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("RESEND_API_KEY is not set");
+    return NextResponse.json(
+      { error: "Sign-ups aren't connected yet. Email katieehoangg@gmail.com to join." },
+      { status: 503 },
+    );
+  }
+
+  const to = process.env.SIGNUP_NOTIFY_EMAIL || "katieehoangg@gmail.com";
+  const from = process.env.SIGNUP_FROM_EMAIL || "Pond <onboarding@resend.dev>";
+  const roleLabel = role === "mentor" ? "Mentor" : "Mentee";
+
+  const rows = [["Name", name], ["Email", email], ...extras.map(([k, v]) => [LABELS[k], v])]
+    .map(([k, v]) => `<tr><td style="padding:6px 12px 6px 0;font-weight:600;vertical-align:top">${esc(k)}</td><td style="padding:6px 0">${esc(v).replace(/\n/g, "<br>")}</td></tr>`)
+    .join("");
+
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from,
+      to,
+      replyTo: email,
+      subject: `New ${roleLabel.toLowerCase()} sign-up: ${name}`,
+      html: `<h2 style="font-family:sans-serif">New ${roleLabel} on Pond</h2><table style="font-family:sans-serif;font-size:15px">${rows}</table>`,
+    });
+    if (error) throw new Error(error.message);
+  } catch (err) {
+    console.error("Resend failed", err);
+    return NextResponse.json({ error: "Your sign-up didn't go through. Try again in a minute." }, { status: 502 });
+  }
+
+  return NextResponse.json({ ok: true });
+}
