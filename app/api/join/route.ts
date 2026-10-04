@@ -47,7 +47,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Fill in every field with a valid email address." }, { status: 400 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
+  // Trim stray whitespace/quotes that often sneak in when pasting the key into Vercel
+  const apiKey = process.env.RESEND_API_KEY?.trim().replace(/^["']|["']$/g, "");
   if (!apiKey) {
     console.error("RESEND_API_KEY is not set");
     return NextResponse.json(
