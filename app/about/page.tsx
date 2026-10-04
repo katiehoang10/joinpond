@@ -52,7 +52,7 @@ export default function AboutPage() {
             <p>
               Pond is my attempt to make it on purpose: a network where young professionals
               mentor and are mentored by their peers, matched one-on-one by people who care
-              about getting the fit right — and, as we grow, by smarter tools too.
+              about getting the fit right.
             </p>
             <p>
               We&apos;re just getting started, and I&apos;m matching the first members myself.
