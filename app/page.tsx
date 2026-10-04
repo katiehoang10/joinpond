@@ -104,28 +104,28 @@ export default function Home() {
       {/* Two paths */}
       <section className="mx-auto max-w-page px-4 pb-16 sm:px-6 md:pb-24">
         <div className="grid overflow-hidden rounded-[2rem] md:grid-cols-2">
-          <div className="bg-ink p-8 text-surface sm:p-12">
+          <div className="flex flex-col items-start bg-ink p-8 text-surface sm:p-12">
             <h2 className="font-display text-3xl font-bold">I want a mentor</h2>
-            <p className="mt-3 max-w-md leading-relaxed text-surface/80">
+            <p className="mb-8 mt-3 max-w-md leading-relaxed text-surface/80">
               Changing roles, starting out, stuck on a decision? Get matched with someone who
               solved the same problem recently.
             </p>
             <Link
               href="/join"
-              className="mt-8 inline-flex rounded-full bg-surface px-6 py-3 font-semibold text-ink hover:bg-lily"
+              className="mt-auto inline-flex rounded-full bg-surface px-6 py-3 font-semibold text-ink hover:bg-lily"
             >
               Find a mentor
             </Link>
           </div>
-          <div className="bg-indigo p-8 text-white sm:p-12">
+          <div className="flex flex-col items-start bg-indigo p-8 text-white sm:p-12">
             <h2 className="font-display text-3xl font-bold">I want to mentor</h2>
-            <p className="mt-3 max-w-md leading-relaxed text-white/85">
+            <p className="mb-8 mt-3 max-w-md leading-relaxed text-white/85">
               You don&apos;t need a corner office to be useful. If you&apos;ve figured something
               out, someone a step behind you needs to hear it.
             </p>
             <Link
               href="/join?role=mentor"
-              className="mt-8 inline-flex rounded-full bg-white px-6 py-3 font-semibold text-indigo hover:bg-lily"
+              className="mt-auto inline-flex rounded-full bg-white px-6 py-3 font-semibold text-indigo hover:bg-lily"
             >
               Become a mentor
             </Link>
