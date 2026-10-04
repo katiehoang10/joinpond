@@ -1,4 +1,4 @@
-# Pond (pondmentors.com)
+# Pond (joinpond.vercel.app)
 
 Peer mentoring for young professionals. Next.js 14 + Tailwind, sign-ups emailed via Resend.
 
