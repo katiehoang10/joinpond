@@ -76,8 +76,23 @@ export async function POST(req: Request) {
     });
     if (error) throw new Error(error.message);
   } catch (err) {
-    console.error("Resend failed", err);
-    return NextResponse.json({ error: "Your sign-up didn't go through. Try again in a minute." }, { status: 502 });
+    const reason = err instanceof Error ? err.message : String(err);
+    // Key shape only (never the key itself) so a bad paste is easy to spot in Vercel logs
+    console.error("Resend failed", {
+      reason,
+      keyStartsWithRe: apiKey.startsWith("re_"),
+      keyLength: apiKey.length,
+      from,
+      to,
+    });
+    return NextResponse.json(
+      {
+        error: "Your sign-up didn't go through. Try again in a minute.",
+        // Shown under the error so setup problems are visible without digging through logs
+        detail: `Email service said: ${reason}`,
+      },
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({ ok: true });

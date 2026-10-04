@@ -24,6 +24,7 @@ export default function JoinForm() {
 
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
+  const [detail, setDetail] = useState("");
 
   function switchRole(next: Role) {
     setStatus("idle");
@@ -35,6 +36,7 @@ export default function JoinForm() {
     e.preventDefault();
     setStatus("sending");
     setError("");
+    setDetail("");
     const data = Object.fromEntries(new FormData(e.currentTarget).entries());
     try {
       const res = await fetch("/api/join", {
@@ -43,7 +45,10 @@ export default function JoinForm() {
         body: JSON.stringify({ ...data, role }),
       });
       const json = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(json.error || "Your sign-up didn't go through. Try again in a minute.");
+      if (!res.ok) {
+        setDetail(json.detail || "");
+        throw new Error(json.error || "Your sign-up didn't go through. Try again in a minute.");
+      }
       setStatus("sent");
     } catch (err) {
       setStatus("error");
@@ -137,6 +142,7 @@ export default function JoinForm() {
         {status === "error" && (
           <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 font-medium text-red-800">
             {error}
+            {detail && <span className="mt-1 block text-sm font-normal text-red-700">{detail}</span>}
           </p>
         )}
 
