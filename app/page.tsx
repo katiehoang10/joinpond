@@ -62,7 +62,7 @@ export default function Home() {
             <ul className="space-y-3">
               {[
                 "How to prepare for a competitive interview when everyone else in the pipeline looks great on paper.",
-                "How to use AI to draft a survey that people actually finish and that gets you answers you can use.",
+                "How to use AI to drive value in your role, not just have it on there to check a box.",
                 "How to ask a question in a meeting with confidence, even when you're the newest person in the room.",
               ].map((item) => (
                 <li key={item} className="flex gap-3">
