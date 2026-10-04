@@ -9,7 +9,7 @@ Peer mentoring for young professionals. Next.js 14 + Tailwind, sign-ups emailed 
 - `/api/join` — receives sign-ups and emails them to you
 
 ## Before you launch
-1. **Your photo:** replace `public/katie.jpg` (square, at least 800×800).
+1. **Your photo:** `public/katie-hoang.jpg` (square, at least 800×800) ✓ added
 2. **Your story:** edit the paragraphs in `app/about/page.tsx`.
 
 ## Run locally

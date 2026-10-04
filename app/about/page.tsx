@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Why Katie started Pond, a peer mentoring network for young professionals.",
 };
 
-// ✏️ Katie: replace /public/katie.jpg with your photo (square works best),
+// ✏️ Katie: your photo is /public/katie-hoang.jpg (square works best),
 // and edit the story paragraphs below in your own words.
 export default function AboutPage() {
   return (
@@ -15,7 +15,7 @@ export default function AboutPage() {
       <section className="mx-auto grid max-w-page items-start gap-10 px-4 py-12 sm:px-6 md:grid-cols-[0.8fr_1.2fr] md:py-20">
         <div className="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-full border-[6px] border-lily bg-lily md:sticky md:top-28">
           <Image
-            src="/katie.jpg"
+            src="/katie-hoang.jpg"
             alt="Katie, founder of Pond"
             fill
             sizes="(min-width: 768px) 24rem, 80vw"
