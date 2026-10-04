@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Pond — peer mentoring for young professionals",
   description:
     "Pond matches young professionals with peer mentors a few steps ahead. Get a mentor, or become one.",
-  metadataBase: new URL("https://joinpond.vercel.app"),
+  metadataBase: new URL("https://www.pondmentors.com"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
