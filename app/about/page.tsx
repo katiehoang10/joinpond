@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/REPLACE-ME";
+const LINKEDIN_URL = "https://www.linkedin.com/in/katie-hoang-7497a0170/";
 
 export const metadata: Metadata = {
   title: "About — Pond",
