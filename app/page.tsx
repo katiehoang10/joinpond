@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Ripples from "@/components/Ripples";
+import EmailPreview from "@/components/EmailPreview";
 
-type Step = { title: string; body: string; example?: { label: string; lines: string[] } };
-
-const steps: Step[] = [
+const steps = [
   {
     title: "Tell us where you are",
     body: "A two-minute sign-up: your industry, what you're working on, and what kind of help you want — or can give.",
@@ -11,23 +10,10 @@ const steps: Step[] = [
   {
     title: "Get matched with a peer",
     body: "A real person pairs you with someone a few steps ahead on the same path. Then we use AI to help write you both an intro that explains why you're a good fit.",
-    example: {
-      label: "From your intro email",
-      lines: [
-        "You're both in consulting. Maya made the switch to product last year, which is exactly what you're weighing.",
-      ],
-    },
   },
   {
     title: "Meet one-on-one",
-    body: "Before you meet, you'll both get a few starter questions written for your match, so neither of you walks in cold. After that, you set the pace.",
-    example: {
-      label: "Starter questions",
-      lines: [
-        "What made you decide to leave consulting?",
-        "What do you wish you'd known in your first month in product?",
-      ],
-    },
+    body: "Send your mentor a short note with a few starter questions — we'll help you draft them — so neither of you walks in cold. After that, you set the pace.",
   },
 ];
 
@@ -104,32 +90,18 @@ export default function Home() {
       <section id="how-it-works" className="scroll-mt-20">
         <div className="mx-auto max-w-page px-4 py-16 sm:px-6 md:py-24">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">How it works</h2>
-          <ol className="mt-10 grid gap-10 md:grid-cols-3 md:gap-y-0">
+          <ol className="mt-10 grid gap-10 md:grid-cols-3">
             {steps.map((s, i) => (
-              <li key={s.title} className="border-t-2 border-ink pt-5 md:row-span-4 md:grid md:grid-rows-subgrid md:content-start">
+              <li key={s.title} className="border-t-2 border-ink pt-5">
                 <span className="font-display text-5xl font-extrabold text-indigo">{i + 1}</span>
                 <h3 className="mt-3 font-display text-xl font-bold">{s.title}</h3>
                 <p className="mt-2 leading-relaxed text-ink/80">{s.body}</p>
-                {s.example && (
-                  <figure className="mt-5 rounded-2xl rounded-tl-sm border border-ripple bg-white p-4">
-                    <figcaption className="text-sm font-semibold text-indigo">{s.example.label}</figcaption>
-                    {s.example.lines.length === 1 ? (
-                      <p className="mt-1.5 leading-relaxed">{s.example.lines[0]}</p>
-                    ) : (
-                      <ul className="mt-1.5 space-y-1.5 leading-relaxed">
-                        {s.example.lines.map((l) => (
-                          <li key={l} className="flex gap-2">
-                            <span aria-hidden="true" className="text-ink/40">–</span>
-                            <span>{l}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </figure>
-                )}
               </li>
             ))}
           </ol>
+          <div className="mt-16">
+            <EmailPreview />
+          </div>
         </div>
       </section>
 
