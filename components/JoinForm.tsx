@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { INDUSTRIES, YEARS_IN_ROLE, NO_PIVOT } from "@/lib/options";
 
 type Role = "mentee" | "mentor";
 
@@ -11,7 +12,7 @@ const fields: Record<Role, { name: string; label: string; hint?: string; long?: 
     { name: "helpNeeded", label: "What kind of help would be most useful?", hint: "e.g. resume feedback, someone to talk through offers with", long: true },
   ],
   mentor: [
-    { name: "background", label: "Your background in a sentence", hint: "e.g. two years as a data analyst at a fintech startup, came from a non-CS degree" },
+    { name: "background", label: "Your background in a sentence", hint: "e.g. two years as a data analyst at a fintech startup, came from a non-CS degree", long: true },
     { name: "topics", label: "What can you help with, and how often?", hint: "e.g. breaking into analytics, salary negotiation — one call a month", long: true },
   ],
 };
@@ -65,6 +66,7 @@ export default function JoinForm() {
 
   const input =
     "mt-2 w-full rounded-xl border-2 border-ink/20 bg-white px-4 py-3 text-ink placeholder:text-ink/40 focus:border-indigo focus:outline-none";
+  const select = "select-chevron"; // see globals.css
 
   return (
     <div>
@@ -94,6 +96,33 @@ export default function JoinForm() {
             <input name="email" type="email" required autoComplete="email" className={input} />
           </label>
         </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <label className="block">
+            <span className="font-semibold">What industry are you in?</span>
+            <select name="industry" required defaultValue="" className={`${input} ${select}`}>
+              <option value="" disabled>Choose an industry</option>
+              {INDUSTRIES.map((o) => <option key={o}>{o}</option>)}
+            </select>
+          </label>
+          <label className="block">
+            <span className="font-semibold">Years in your current role</span>
+            <select name="yearsInRole" required defaultValue="" className={`${input} ${select}`}>
+              <option value="" disabled>Choose one</option>
+              {YEARS_IN_ROLE.map((o) => <option key={o}>{o}</option>)}
+            </select>
+          </label>
+        </div>
+
+        {role === "mentee" && (
+          <label className="block">
+            <span className="font-semibold">Thinking about switching industries? Which one interests you?</span>
+            <select name="pivotIndustry" defaultValue={NO_PIVOT} className={`${input} ${select}`}>
+              <option>{NO_PIVOT}</option>
+              {INDUSTRIES.map((o) => <option key={o}>{o}</option>)}
+            </select>
+          </label>
+        )}
         {fields[role].map((f) => (
           <label key={f.name} className="block">
             <span className="font-semibold">{f.label}</span>

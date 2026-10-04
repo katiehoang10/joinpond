@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+import { INDUSTRIES, YEARS_IN_ROLE, NO_PIVOT } from "@/lib/options";
+
 const LABELS: Record<string, string> = {
+  industry: "Industry",
+  yearsInRole: "Time in current role",
+  pivotIndustry: "Wants to switch into",
   workingOn: "Working on / figuring out",
   helpNeeded: "Help needed",
   background: "Background",
@@ -22,10 +27,23 @@ export async function POST(req: Request) {
   const role = body.role === "mentor" ? "mentor" : "mentee";
   const name = String(body.name ?? "").trim().slice(0, 200);
   const email = String(body.email ?? "").trim().slice(0, 200);
-  const extraKeys = role === "mentor" ? ["background", "topics"] : ["workingOn", "helpNeeded"];
-  const extras = extraKeys.map((k) => [k, String(body[k] ?? "").trim().slice(0, 2000)] as const);
+  const industry = String(body.industry ?? "");
+  const yearsInRole = String(body.yearsInRole ?? "");
+  const pivotIndustry = String(body.pivotIndustry ?? NO_PIVOT);
+  const choicesValid =
+    (INDUSTRIES as readonly string[]).includes(industry) &&
+    (YEARS_IN_ROLE as readonly string[]).includes(yearsInRole) &&
+    (role === "mentor" || pivotIndustry === NO_PIVOT || (INDUSTRIES as readonly string[]).includes(pivotIndustry));
 
-  if (!name || !/^\S+@\S+\.\S+$/.test(email) || extras.some(([, v]) => !v)) {
+  const extraKeys = role === "mentor" ? ["background", "topics"] : ["workingOn", "helpNeeded"];
+  const extras: (readonly [string, string])[] = [
+    ["industry", industry],
+    ["yearsInRole", yearsInRole],
+    ...(role === "mentee" ? [["pivotIndustry", pivotIndustry] as const] : []),
+    ...extraKeys.map((k) => [k, String(body[k] ?? "").trim().slice(0, 2000)] as const),
+  ];
+
+  if (!name || !/^\S+@\S+\.\S+$/.test(email) || !choicesValid || extras.some(([, v]) => !v)) {
     return NextResponse.json({ error: "Fill in every field with a valid email address." }, { status: 400 });
   }
 
