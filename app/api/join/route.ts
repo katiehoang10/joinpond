@@ -57,6 +57,19 @@ export async function POST(req: Request) {
     );
   }
 
+  // A shortened key copied from Resend's key list looks like "re_…a1b2" and can never work
+  if (/[^\x21-\x7e]/.test(apiKey)) {
+    console.error("RESEND_API_KEY contains invalid characters (likely a shortened '…' preview)");
+    return NextResponse.json(
+      {
+        error: "Your sign-up didn't go through. Try again in a minute.",
+        detail:
+          "Setup issue: the Resend key saved in Vercel is a shortened preview (it contains “…”). Create a new key in Resend and paste the full key.",
+      },
+      { status: 502 },
+    );
+  }
+
   const to = process.env.SIGNUP_NOTIFY_EMAIL || "katieehoangg@gmail.com";
   const from = process.env.SIGNUP_FROM_EMAIL || "Pond <onboarding@resend.dev>";
   const roleLabel = role === "mentor" ? "Mentor" : "Mentee";
