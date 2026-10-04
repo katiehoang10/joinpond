@@ -55,9 +55,27 @@ export default function Home() {
               you. That makes mentors scarce, busy, and a little intimidating to ask.
             </p>
             <p>
-              But some of the most useful advice you'll get comes from someone who was in your
-              seat recently — who knows which resume line mattered, how to ask for the raise,
-              what the first manager conversation actually sounds like.
+              But some of the most useful advice you&apos;ll get comes from someone who was in
+              your seat recently, and remembers the specifics:
+            </p>
+            <ul className="space-y-3">
+              {[
+                "How to prepare for a competitive interview when everyone else in the pipeline looks great on paper.",
+                "How to use AI to draft a survey that people actually finish and that gets you answers you can use.",
+                "How to ask a question in a meeting with confidence, even when you're the newest person in the room.",
+              ].map((item) => (
+                <li key={item} className="flex gap-3">
+                  <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" className="mt-1.5 shrink-0">
+                    <circle cx="9" cy="9" r="7.5" fill="none" stroke="#10304A" strokeWidth="1.6" />
+                    <circle cx="9" cy="9" r="3" fill="#4F46E5" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p>
+              Those are the moments where a peer a year or two ahead can save you weeks of
+              guessing.
             </p>
             <p className="font-semibold">
               Pond makes those peer connections on purpose, one-on-one, instead of leaving them
